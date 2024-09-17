@@ -1,17 +1,28 @@
 const express = require('express');
 const cors = require('cors');
+const redis = require('redis');
 
 const app = express();
 const port = 3000;
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
+// Create a Redis client
+const redisClient = redis.createClient({
+  url: 'redis://localhost:6379'
 });
 
-// db config
-const { connectToRedis } = require('./dbconnect');
+// Handle connection events
+redisClient.connect().then(() => {
+  console.log('Connected to Redis');
+}).catch((err) => {
+  console.error('Redis connection error:', err);
+  process.exit(1);  // Exit if Redis fails to connect
+});
 
-connectToRedis();
+redisClient.on('error', (err) => {
+  console.error('Redis encountered an error:', err);
+});
 
 // middleware
 app.use(cors());
