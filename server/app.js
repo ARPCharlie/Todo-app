@@ -22,8 +22,8 @@ redisClient.on('error', (err) => {
   console.error('Redis encountered an error:', err);
 });
 
-// middleware
-app.use(cors());
+// Middleware
+app.use(cors({ origin: '*' })); // Allow requests from your frontend
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
