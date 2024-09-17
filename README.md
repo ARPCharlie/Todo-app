@@ -1,5 +1,5 @@
 # Todo-app
-This app is mostly built as a meme and to learn more about remix as a framework.
+This app is mostly built as a meme.
 
 # DONT USE
 Im not planning on building it for production (oh tho I am), so use it at your own risk.
