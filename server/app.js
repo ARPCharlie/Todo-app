@@ -31,6 +31,13 @@ app.use(express.urlencoded({ extended: true }));
 const itemRoutes = require('./routes/items')(redisClient); // Pass the Redis client to the routes
 app.use('/api/items', itemRoutes);
 
+// Shutdown
+process.on('SIGINT', () => {
+  redisClient.quit(() => {
+    console.log('Redis client disconnected');
+    process.exit(0);
+  });
+});
 
 // Start server
 app.listen(port, () => {
